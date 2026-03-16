@@ -1,1 +1,10 @@
-qsfsfgsd
+# LaTeX build files (à ne pas versionner)
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
