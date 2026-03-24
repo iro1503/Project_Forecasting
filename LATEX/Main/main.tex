@@ -1,61 +1,152 @@
-% =========================
-% FICHIER PRINCIPAL (main.tex)
-% Classe: report (chapitres)
-% Rôle: définir le préambule + assembler les chapitres
-% =========================
+\documentclass[25pt, a0paper, portrait, margin=0mm, innermargin=15mm,blockverticalspace=15mm, colspace=15mm, subcolspace=8mm]{tikzposter}
 
-\documentclass[12pt,a4paper]{report}
-% \documentclass définit le type de document.
-% report = structure avec \chapter, \section, etc.
-% Les options (12pt, a4paper) règlent la taille de police et le format papier.
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
-% ---------- Préambule commun ----------
-\input{Preamble}
-% \input{...} insère le contenu d’un fichier à cet endroit (comme un copier-coller).
-% On l’utilise souvent pour mettre les packages et macros dans un fichier séparé.
 
-% ---------- Compilation partielle (optionnel) ----------
-% \includeonly{chapters/02-method,chapters/03-results}
-% \includeonly permet de compiler uniquement certains chapitres
-% (ceux appelés via \include) pour accélérer la compilation.
-% Important: ça n’a d’effet que sur \include, pas sur \input.
+\input{packages}
+\input{apparence}
 
+\title{\parbox{1700pt}{Machine learning demand forecasting and supply chain performance}}
+
+\author{Determe Vincent, Vliegen Nicolas, Annet François}
+\institute{HEC Liège}
+
+\usetitlestyle[]{sampletitle}
+\setlength{\columnseprule}{0.4pt}
+\addbibresource{Biblio/Biblio.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-% Début du contenu visible du document.
-% Tout ce qui est avant = préambule (configuration), tout ce qui est après = contenu.
-\pagenumbering{gobble} % Désactive la numérotation des pages
-% ---------- Pages de début (exemples) ----------
-\title{Titre du rapport}
-% Définit le titre (utilisé par \maketitle).
 
-\author{Prénom NOM}
-% Définit l’auteur (utilisé par \maketitle).
-
-\date{\today}
-% Définit la date (ici: date du jour). Peut être vide: \date{}.
-\pagenumbering{gobble} % Désactive la numérotation des pages
 \maketitle
-% Génère la page de titre à partir de \title, \author, \date.
-\pagenumbering{gobble} % Désactive la numérotation des pages
-\tableofcontents
+% --- Lignes entre les colonnes
+\draw[eric-lab, line width=2mm, loosely dotted] (-13,40) -- (-13,-45); 
+\draw[eric-lab, line width=2mm, loosely dotted] (15,40) -- (15,-45);
 
-% Génère la table des matières (sommaire).
-%Numérotation de page 
-\pagenumbering{arabic}
-\setcounter{page}{1}
-% ---------- Chapitres ----------
-\include{A0/A0}
-% \include insère un “gros bloc” (souvent un chapitre).
-% Particularité: force des sauts de page avant/après (pratique pour des chapitres).
+%------------------------------------------------------------------------------
+% --------------------- CORPS DU POSTER ---------------------
+\begin{columns}
+\column{1}
+    \begin{subcolumns}
+    %%%%%%%%%%%% COLONNE 1 %%%%%%%%%%%%%
+    \subcolumn{.33}
+   
+    % ---------------------------------MOTIVATIONS ----------
+        % \block{\textsc{Motivations}}{Hey}
+    
+
+    % --------------------------------- PARTIE1----------
+        \block{\textsc{Introduction}}{
+        Let’s imagine a classic supply chain. At the end of the chain, a consumer who buys a product, for instance diapers, food or in our case steel products intended for recurring use. Then, before in the supply chain there is a retailer, a wholesaler, a distributor, then an industrialist who plans his production. By looking to the direct sales to the consumers, it can be seen that the this demand is clean and somehow forecastable but by looking before in the supply chain, it can be seen that the demands is more volatile with peaks and hollows which can't really be linked to the final demand. This amplification of the variance in demand as one moves up the chain results in additional production costs, overcapacity or overtime, excess stocks, but also unforeseen breaks, with additional costs evaluated in certain sectors between 12.5\% and 25\% of the relevant costs.
+        \\
+        This effect has been named the "bullwhip effect" by Lee, Padmanabhan and Whang. 
+        
+        \begin{center}         \includegraphics[width=25cm]    {images/Bullwhip_Effect.png}
+        \end{center}
+
+        The article argues that ML-based forecasting can mitigate the bullwhip effect by extracting a more reliable demand signal from distorted upstream orders. Its purpose is to demonstrate that hybrid ML methods combining ARIMAX, neural networks and exogenous indicators can perform better than traditional forecasting methods and generate measurable improvements in forecast accuracy and supply chain performance.
+
+        
+        }
+      % --------------------------------- PARTIE 2  ----------    
+    \block{\textsc{Bullwhip effect}}{
+        
+        % \tikzstyle{na}=[baseline=-.25ex]
+        % \tikzstyle{every picture}+=[remember picture]
+        % \vspace{0.5cm}
+        
+        % \innerblock{Avec titre}{\input{figures/figure1}
+        % } 
+        % \vspace{0.5cm}
+        % \lipsum[1]
+            
+        %   \vspace{-2cm}}
+        Here is the formula which describes the "Bullwhip effect"
+        \vspace{2cm}
+        \[
+            \mathbf{\Huge D_t = d + \rho D_{t-1} + u_t}
+        \]
+        \vspace{2cm}
+        \begin{itemize}
+            \setlength{\leftskip}{1.2cm}
+            \item $\mathbf{D_t}$: the demand observed today, for example this week's sales.
+            \item $\mathbf{D_{t-1}}$: the demand from the previous period, for example last week's sales.
+            \item $\mathbf{d}$: the baseline level of demand, that is, the ``normal'' demand around which fluctuations occur.
+            \item $\mathbf{\rho}$: the memory effect of demand; if $\mathbf{\rho > 0}$, a recent increase in demand tends to be followed by another increase, at least partially.
+            \item $\mathbf{u_t}$: the random noise term, that is, everything that makes demand move in an unexpected way.
+        \end{itemize}
+        \vspace{2cm}
+        \begin{quote}
+        Today's demand depends on an average level, a part of past demand, and an unpredictable shock.
+        \end{quote}
+        
+        }  
+    %%%%%%%%%%%%%%% COLONNE 2 %%%%%%%%%%%%%
+    \subcolumn{.33}
+    
+        % ---------------------------------  PARTIE 3----------
+    \block{\textsc{Old methods (Simple time series) }}{
+    \begin{center}
+    \includegraphics[width=20cm]{images/41598_2024_52240_Fig1_HTML.png}
+    \end{center}
+    \begin{itemize}[label=-]
+            \item Simple Exponential Smoothing: used for data with no trend nor seasonality;
+            \item Holt-Winters: Uses both the trend and the seasonality;
+            \item Damped Trend: Used to extrapolate data assuming a linear trend that is gradually dampened (reduced) over time;
+            \item ARIMA (Box-Jenkins); A  statistical framework that identifies an "optimal" model for a series by combining Autoregressive (AR), Integrated (I), and Moving Average (MA) components.
+
+            
+        \end{itemize}
+    }
+        
+    % --------------------------------- PARTIE 4  ----------
 
 
-% ---------- Annexes ----------
-\appendix
-% À partir d’ici, les chapitres deviennent des annexes (A, B, C... au lieu de 1, 2, 3).
+        
+        \block{\textsc{New methods: Hybrid models}}{
+        \begin{center}
+        
+         \end{center}
+            \begin{itemize}[label=-]
+            \item ARIMAX;
+            \item Neural Network with exogenous factors;
+            \item Recurrent Neural Network;
+        \end{itemize}
+        \includegraphics[width=20cm]{images/ARIMAX3.png}
+        }
+ % ------------------------------------ PARTIE 5------------
+        \block{\textsc{Why new models are good ?}}{Modern forecasting models are powerful because they combine statistical components (level/trend/seasonality), explanatory variables, and aggregated signals in hybrid or optimized combination architectures. In M4, ES-RNN and winning combinations leverage global learning across 100,000 series to intelligently weight simple models, improving accuracy and prediction intervals. In the steel study, ARIMAX+neural networks integrate demand history and macroeconomic indicators, capturing nonlinear relationships and translating sMAPE gains into concrete improvements (inventory, cash-conversion cycle). Their common strength: modeling real demand structures (trend, seasonality, causality, bullwhip) while avoiding overfitting through combinations and rigorous evaluation on large datasets.}
 
-% \include{appendices/app-a}
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%% COLONNE 3 %%%%%%%%%%%%%%%%%%%%%%%%%   
+    \subcolumn{.33}
 
-% ---------- Fin du document ----------
+    % ---------------------------------------------
+        \block{\textsc{Most used method}}{
+        A \textbf{neural network} is a computational model inspired by the human brain. It consists of layers of interconnected nodes called neurons. At a minimum, a network has an input layer and an output layer. In addition to that, we can add one or more hidden layers between them to complexify the function that the network can approximate. Information from the input layer propagates through the hidden layers to the output layer. Each neuron computes a weighted sum of its inputs and applies an activation function to this sum. Neural networks can learn complex patterns from data, making them very powerful tools.\\
+        \begin{center}
+        \includegraphics[width=20cm]{images/OIP.jpg}    
+        \end{center}
+        
+        \vspace{0.5cm}
+        \textbf{Recurrent neural network} (RNNs) are a class of neural networks designed to handle sequential data, where the output at each step depends on previous computations. They maintain a hidden state that captures information from prior inputs, making them effective for time series forecasting, natural language processing, and sequence prediction. Unlike feedforward networks, RNNs can model temporal dependencies. However, standard RNNs may struggle with long-term dependencies due to vanishing or exploding gradients. Advanced variants like Long Short-Term Memory (LSTM) address these limitations by improving the network’s ability to learn from distant past events.
+        \begin{center}
+            \includegraphics[width= 15 cm]{images/enterpriseai-recurrent_neural_network-f_mobile.png}
+        \end{center}
+        \vspace{0.5cm}
+        \textbf{Support Vector Machines} (SVM) are supervised learning models widely used for both regression and classification tasks in machine learning. In the context of regression, known as Support Vector Regression (SVR), the algorithm seeks to fit a function within a margin of tolerance … margin of tolerance $\epsilon$ around … around the predicted values. Data points that fall inside this margin do not contribute to the error, whereas the optimization focuses on minimizing the error of points lying outside the margin. The estimated function can model nonlinear relationships through the use of nonlinear kernel functions. Common examples of nonlinear kernels include the polynomial kernel and the Gaussian (RBF) kernel. With an appropriate choice of kernel, SVR can act as a universal approximator, capable of modeling a wide range of complex functions.
+        \\
+
+        \begin{center}
+            \includegraphics[width = 15 cm]{images/support-vector-regression-svr1-l.jpg} 
+        \end{center}
+        
+        
+        }
+     
+        
+    \end{subcolumns}
+% ----------------- Ligne colorée à la fin du document -------------
+\end{columns}
 \end{document}
-% Fin du document: rien ne doit apparaître après.
-
