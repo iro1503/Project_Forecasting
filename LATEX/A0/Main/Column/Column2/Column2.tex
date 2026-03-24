@@ -1,0 +1,32 @@
+\block{\textsc{Old methods (Simple time series) }}{
+    \begin{center}
+    \includegraphics[width=20cm]{images/41598_2024_52240_Fig1_HTML.png}
+    \end{center}
+    \begin{itemize}[label=-]
+        \item Simple Exponential Smoothing: used for data with no trend nor seasonality;
+        \item Holt-Winters: Uses both the trend and the seasonality;
+        \item Damped Trend: Used to extrapolate data assuming a linear trend that is gradually dampened (reduced) over time;
+        \item ARIMA (Box-Jenkins); A  statistical framework that identifies an "optimal" model for a series by combining Autoregressive (AR), Integrated (I), and Moving Average (MA) components.      
+    \end{itemize}
+}
+        
+    % --------------------------------- PARTIE 4  ----------
+
+
+        
+\block{\textsc{New methods: Hybrid models}}{
+    \begin{center}
+    \end{center}
+    \begin{itemize}[label=-]
+        \item ARIMAX;
+        \item Neural Network with exogenous factors;
+        \item Recurrent Neural Network;
+    \end{itemize}
+    \includegraphics[width=20cm]{images/ARIMAX3.png}
+}
+ % ------------------------------------ PARTIE 5------------
+\block{\textsc{Why new models are good ?}}{
+    Modern forecasting models are powerful because they combine statistical components (level/trend/seasonality), explanatory variables, and aggregated signals in hybrid or optimized combination architectures. In M4, ES-RNN and winning combinations leverage global learning across 100,000 series to intelligently weight simple models, improving accuracy and prediction intervals. In the steel study, ARIMAX+neural networks integrate demand history and macroeconomic indicators, capturing nonlinear relationships and translating sMAPE gains into concrete improvements (inventory, cash-conversion cycle). Their common strength: modeling real demand structures (trend, seasonality, causality, bullwhip) while avoiding overfitting through combinations and rigorous evaluation on large datasets.
+}
+
+ 

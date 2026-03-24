@@ -1,0 +1,44 @@
+\documentclass[25pt, a0paper, portrait, margin=0mm, innermargin=15mm,blockverticalspace=15mm, colspace=15mm, subcolspace=8mm]{tikzposter}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+
+\input{packages}
+\input{apparence}
+
+\title{\parbox{1700pt}{Machine learning demand forecasting and supply chain performance}}
+
+\author{Determe Vincent, Vliegen Nicolas, Annet François}
+\institute{HEC Liège}
+
+\usetitlestyle[]{sampletitle}
+\setlength{\columnseprule}{0.4pt}
+\addbibresource{Biblio/Biblio.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+% --- Lignes entre les colonnes
+\draw[eric-lab, line width=2mm, loosely dotted] (-13,40) -- (-13,-45); 
+\draw[eric-lab, line width=2mm, loosely dotted] (15,40) -- (15,-45);
+
+%------------------------------------------------------------------------------
+% --------------------- CORPS DU POSTER ---------------------
+\begin{columns}
+\column{1}
+    \begin{subcolumns}
+    %%%%%%%%%%%% COLONNE 1 %%%%%%%%%%%%%
+    \subcolumn{.33}
+    \input{Column/Column1/Column1.tex} 
+    %%%%%%%%%%%%%%% COLONNE 2 %%%%%%%%%%%%%
+    \subcolumn{.33}
+    \input{Column/Column2/Column2.tex}
+ %%%%%%%%%%%%%%%%%%%%%%%% COLONNE 3 %%%%%%%%%%%%%%%%%%%%%%%%%   
+    \subcolumn{.33}
+    \input{Column/Column3/Column3.tex}
+    \end{subcolumns}
+% ----------------- Ligne colorée à la fin du document -------------
+\end{columns}
+\end{document}
