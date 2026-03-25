@@ -1,32 +1,38 @@
-\block{\textsc{Old methods (Simple time series) }}{
+    \block{\textsc{Old methods (Simple time series) }}{
     \begin{center}
     \includegraphics[width=20cm]{images/41598_2024_52240_Fig1_HTML.png}
     \end{center}
     \begin{itemize}[label=-]
-        \item Simple Exponential Smoothing: used for data with no trend nor seasonality;
-        \item Holt-Winters: Uses both the trend and the seasonality;
-        \item Damped Trend: Used to extrapolate data assuming a linear trend that is gradually dampened (reduced) over time;
-        \item ARIMA (Box-Jenkins); A  statistical framework that identifies an "optimal" model for a series by combining Autoregressive (AR), Integrated (I), and Moving Average (MA) components.      
-    \end{itemize}
-}
+            \item Simple Exponential Smoothing: used for data with no trend nor seasonality;
+            \item Holt-Winters: Uses both the trend and the seasonality;
+            \item Damped Trend: Used to extrapolate data assuming a linear trend that is gradually dampened (reduced) over time;
+            \item ARIMA (Box-Jenkins); A  statistical framework that identifies an "optimal" model for a series by combining Autoregressive (AR), Integrated (I), and Moving Average (MA) components.
+
+            
+        \end{itemize}
+    }
         
     % --------------------------------- PARTIE 4  ----------
 
 
         
-\block{\textsc{New methods: Hybrid models}}{
-    \begin{center}
-    \end{center}
-    \begin{itemize}[label=-]
-        \item ARIMAX;
-        \item Neural Network with exogenous factors;
-        \item Recurrent Neural Network;
-    \end{itemize}
-    \includegraphics[width=20cm]{images/ARIMAX3.png}
-}
+        \block{\textsc{New methods: ML-Hybrid models}}{
+        \begin{center}
+        
+         \end{center}
+            \begin{itemize}[label=-]
+            \item ARIMAX: Evolution of the ARIMA model. The X stands for exogenous factors that were kept to take into account not only the time serie but also causes of the change in demand. In addition to that, the predictions of the Holt-Winters model were added to make the model hybrid and exogenous;
+            \item Neural Network with exogenous factors: The neural network is composed of 7 inputs: three months of historical demand, 3 exogenous factors (the same as for the ARIMAX model) and the forecast of the Holt-Winters model;
+            \item Recurrent Neural Network: Specific type of neural network used with exponential smoothing. The factors of the exponential smoothing formulas were updated with the branches using the gradient;
+        \end{itemize}
+        \begin{center}
+            \includegraphics[width=20cm]{images/ARIMAX3.png}
+        \end{center}
+        }
  % ------------------------------------ PARTIE 5------------
-\block{\textsc{Why new models are good ?}}{
-    Modern forecasting models are powerful because they combine statistical components (level/trend/seasonality), explanatory variables, and aggregated signals in hybrid or optimized combination architectures. In M4, ES-RNN and winning combinations leverage global learning across 100,000 series to intelligently weight simple models, improving accuracy and prediction intervals. In the steel study, ARIMAX+neural networks integrate demand history and macroeconomic indicators, capturing nonlinear relationships and translating sMAPE gains into concrete improvements (inventory, cash-conversion cycle). Their common strength: modeling real demand structures (trend, seasonality, causality, bullwhip) while avoiding overfitting through combinations and rigorous evaluation on large datasets.
-}
-
- 
+        \block{\textsc{Upsides and downsides}}{   \begin{itemize}[label=-]
+            \item (+) Hybrid models consistently outperform traditional methods, achieving nearly a 10\% improvement in the M4 competition and a 5\% accuracy gain in specific industrial applications like steel manufacturing;
+            \item (+) These methods lead to tangible performance improvements, such as a 21.6-day reduction in the cash-conversion cycle, a 20\% decrease in excess inventory, and a 15\% reduction in stockouts
+            \item (-) "Pure" machine learning methods often fail unless structurally combined with stable statistical models to handle all sources of uncertainty;
+            \item (-) Success depends on high-quality, normalized datasets, requiring rigorous cleaning and validation to avoid unreliable predictions;
+        \end{itemize}}

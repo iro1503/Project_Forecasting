@@ -1,14 +1,23 @@
 % --------------------------------- PARTIE1----------
 \block{\textsc{Introduction}}{
-    Let’s imagine a classic supply chain. At the end of the chain, a consumer buys a product, for instance diapers, food, or in our case steel products intended for recurring use. Upstream in the chain there is a retailer, a wholesaler, a distributor, then an industrialist who plans production. Watching direct consumer sales, demand appears stable and forecastable; but looking farther upstream, demand is much more volatile with peaks and troughs that are not easily linked to final demand. This amplification of demand variance as one moves up the chain results in additional production costs, overcapacity or overtime, excess stocks, and unforeseen stockouts, with added costs in some sectors estimated between 12.5\% and 25\% of relevant costs.
-    \\
-    This effect has been named the "bullwhip effect" by Lee, Padmanabhan and Whang.
+    In many supply chains, demand appears stable at the consumer level — yet grows increasingly volatile further upstream. This poster investigates why, and how machine learning can fix it.
 
+    \vspace{0.4cm}
+
+    \begin{itemize}
+        \item \textbf{Multi-echelon supply chain:} consumer $\to$ retailer $\to$ wholesaler $\to$ distributor $\to$ producer (steel products).
+        \item \textbf{Downstream demand:} stable and forecastable close to the consumer.
+        \item \textbf{Upstream orders:} amplified volatility — peaks and troughs disconnected from real demand.
+        \item \textbf{Consequences:} extra costs (12.5–25\%), overcapacity, excess or short stocks.
+        \item \textbf{This phenomenon:} the \textbf{bullwhip effect}.
+    \end{itemize}
     \begin{center}        
          \includegraphics[width=25cm]{images/Bullwhip_Effect.png}
     \end{center}
+    \vspace{0.2cm}
 
-    The article argues that ML-based forecasting can mitigate the bullwhip effect by extracting a more reliable demand signal from distorted upstream orders. Its purpose is to demonstrate that hybrid ML methods combining ARIMAX, neural networks and exogenous indicators can perform better than traditional forecasting methods and generate measurable improvements in forecast accuracy and supply chain performance.
+    $\rightarrow$ This poster shows that hybrid ML models (ARIMAX + Neural Networks + exogenous indicators) significantly outperform traditional forecasting methods, improving forecast accuracy, inventory turns, and cash-conversion cycle.
+
 }
       % --------------------------------- PARTIE 2  ----------    
 \block{\textsc{Bullwhip effect}}{
